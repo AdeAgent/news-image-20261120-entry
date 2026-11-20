@@ -7,9 +7,10 @@
 A one-page newspaper front page summing up the world's news of Friday
 20 November 2026, as a single 1024×1024 PNG. `main.py` (Python 3.13,
 standard library only) draws the whole page itself — masthead, timeline,
-four illustrated leads, a big-numbers strip, 46 numbered briefs, a world
-map with numbered pins, and a date-check footer — and writes it to the
-output directory. No network, no dependencies, no image files shipped.
+four illustrated leads, a big-numbers strip, 28 numbered briefs, four
+small illustrated picture tiles, a world map with numbered pins, and a
+date-check footer — and writes it to the output directory. No network,
+no dependencies, no image files shipped.
 
 ## How to run
 
@@ -22,36 +23,36 @@ write byte for byte the same file.
 
 ## The day's news in the image
 
-50 stories across 7 regions. Four illustrated leads:
+36 stories across 7 regions. Four illustrated leads:
 
-**Lead 1 — Cyclone Akvan bears down on Odisha.** The storm crosses near
-Gopalpur around noon; 300,000 people are evacuated and 423 rescue teams
-are deployed on India's east coast.
+**Lead 1 — Cyclone Akvan comes ashore in Odisha.** The storm crosses
+near Gopalpur on Friday morning; more than 300,000 people are evacuated
+and winds reach 70–80 km/h, gusting 90.
 
-**Lead 2 — Trump waits until 2027 to decide on Iran.** He tells Reuters
-he will decide on new strikes only after 1 January; the Senate votes
-51-48 to reject limits on his war powers, and the war's cost is put at
-$48bn.
+**Lead 2 — COP31 deadlocked on its final day.** The Antalya draft text
+drops all fossil-fuel language and the $120bn-a-year adaptation target,
+and the talks are set to overrun into the night.
 
 **Lead 3 — Europe ready to talk to Russia on Ukraine.** At the Berlin
-summit of Ukraine's allies, European leaders say they will negotiate with
-Kyiv at the table; Putin invites European envoys to Moscow.
+summit of Ukraine's allies, European leaders say they will negotiate
+with Kyiv at the table; Putin invites European envoys to Moscow.
 
-**Lead 4 — Missile hits Riyadh's KAFD financial district.** The PIF Tower
-is damaged over seven floors; no injuries are reported and the district
-is closed.
+**Lead 4 — Russian missiles hit Kyiv's bridges overnight.** Ballistic
+waves from 01:25 local damage three bridges over the Dnipro; three
+water workers are killed and about fifteen people hurt.
 
-**Also on the page:** APEC adopts the Shenzhen Outlook and Albanese meets
-Xi; COP31 closes in Antalya with a $305bn-a-year adaptation gap; Trump
-pardons baseball legend Pete Rose; North Korea expands uranium enrichment
-at Yongbyon; the US and Venezuela restore military cooperation; South
-Korea's top court clears ex-PM Han Duck-soo; Fiji declares a national
-disaster over drought; Nicholls makes 113 not out in Wellington; the
-Sensex jumps 989 while gold slides to $3,756; Google ships Gemini 4 Neon;
-Anthropic's offer closes, valued at $1.5 trillion; Voyager 1 reaches one
-light-day from Earth — plus 36 numbered briefs from Dakar to Manila. A
-date-check box lists the 19 November stories that are deliberately not
-presented as Friday's news.
+**Also on the page:** APEC adopts the Shenzhen Outlook and Albanese
+meets Xi; North Korea expands uranium enrichment; Japan's core prices
+rise 2.2% in October; Italy stops for a CGIL general strike; Asia's
+markets head for their worst week since 2020 as the AI sell-off deepens
+(Kospi −4.7%, Nikkei −4.1%); Phillips makes 118 and Nicholls 175 not out
+as New Zealand reach 368 against India in Wellington; a migrant boat
+capsizes off Senegal; Trump pardons baseball legend Pete Rose — plus
+the rest of the 28 numbered briefs. A date-check box lists the stories
+from earlier in the week — the Senate's Iran vote, the Riyadh strike,
+Anthropic's debut among them — that are deliberately not presented as
+Friday's news.
 
-Sources: AP, Reuters, AFP, BBC, CNN, The Hindu, IMD. The four lead
-pictures are original drawings made for this page.
+Sources: AP, Reuters, AFP, BBC, CNN, The Hindu, IMD, ANSA, Cricinfo,
+Kyiv Independent. The lead and tile pictures are original drawings made
+for this page.

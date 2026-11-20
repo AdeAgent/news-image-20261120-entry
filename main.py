@@ -2,8 +2,9 @@
 #
 # The program draws the whole front page itself: a newspaper layout with a
 # masthead, a UTC timeline strip, four illustrated leads, a big-numbers
-# strip, a numbered list of 46 further stories (50 stories in all), a
-# simplified world map with numbered pins, and a date-check footer that
+# strip, a numbered list of 28 further stories and four small illustrated
+# picture tiles (36 stories in all), a simplified world map with numbered
+# pins, and a date-check footer that
 # names the near-miss stories it deliberately left out. Every letter is
 # drawn from a small bitmap font defined below, and the PNG bytes are
 # encoded by hand with the standard library only, so the program needs no
@@ -36,6 +37,7 @@ LIGHTGREY = (226, 220, 208)
 GOLD = (212, 175, 55)
 WHITE = (255, 255, 255)
 GREEN = (46, 110, 62)
+ORANGE = (232, 120, 40)
 
 
 def _chunk(kind, payload):
@@ -274,21 +276,22 @@ def draw_para(cv, x, y, width, text, color, scale=1, leading=None):
 # ---------------------------------------------------------------------------
 # The day's news. Every item below happened, or was first reported, on
 # Friday 20 November 2026. Figures come from the wires of the day: the
-# cyclone's landfall and evacuation count from the India Meteorological
-# Department and Odisha officials; the Senate vote and the Iran cost from
-# Reuters and the Senate hearing; the Riyadh strike from Reuters and the
-# Saudi Press Agency; the Berlin summit from the BBC; the APEC outcome from
-# Xinhua and the APEC leaders' declaration. Items marked CLAIM are one
-# side's account, not independently confirmed.
+# Kyiv bridge strike from the Kyiv Independent, RBC-Ukraine and Al
+# Arabiya; the COP31 draft deadlock from Reuters and AFP in Antalya; the
+# Asian market close from Reuters; the Wellington cricket from Cricinfo
+# and AFP; the cyclone's landfall and evacuation count from the India
+# Meteorological Department and The Hindu; the Italian strike from ANSA;
+# Japan's October prices from Reuters in Tokyo. Items marked CLAIM are
+# one side's account, not independently confirmed.
 # ---------------------------------------------------------------------------
 
 TIMELINE = [
-    ("EARLY", "COP31 CLOSES IN ANTALYA"),
+    ("ALL DAY", "COP31 TALKS RUN INTO FINAL NIGHT"),
     ("06:00 UTC", "AKVAN MAKES LANDFALL NEAR GOPALPUR"),
     ("MORNING", "APEC LEADERS MEET IN SHENZHEN"),
-    ("MIDDAY", "SENATE VOTES 51-48 ON IRAN POWERS"),
-    ("AFTERNOON", "MISSILE HITS RIYADH KAFD TOWER"),
-    ("EVENING", "DOW SLIDES 1,084; GOLD AT $3,756"),
+    ("01:25 KYIV", "BALLISTIC MISSILES HIT CAPITAL"),
+    ("AFTERNOON", "COP31 DRAFT STILL WITHOUT FOSSIL FUELS"),
+    ("EVENING", "PRESIDENCY CONSULTS INTO THE NIGHT"),
 ]
 
 LEADS = [
@@ -296,15 +299,15 @@ LEADS = [
         "num": "1",
         "kicker": "ASIA - WEATHER",
         "art": "cyclone",
-        "headline": "CYCLONE AKVAN BEARS DOWN ON ODISHA",
-        "deck": "300,000 evacuated as the storm crosses near Gopalpur; winds 90-100, gusting 110.",
+        "headline": "CYCLONE AKVAN COMES ASHORE IN ODISHA",
+        "deck": "Akvan comes ashore near Gopalpur; 300,000+ evacuated, winds 70-80 km/h gusting 90.",
     },
     {
         "num": "2",
-        "kicker": "WASHINGTON - IRAN",
-        "art": "iran",
-        "headline": "TRUMP WAITS UNTIL 2027 TO DECIDE ON IRAN",
-        "deck": "Senate votes 51-48 to reject limits on his war powers; war cost put at $48bn.",
+        "kicker": "ANTALYA - CLIMATE",
+        "art": "cop",
+        "headline": "COP31 DEADLOCKED ON ITS FINAL DAY",
+        "deck": "Draft drops all fossil-fuel language and the $120bn adaptation target; talks set to overrun.",
     },
     {
         "num": "3",
@@ -315,78 +318,75 @@ LEADS = [
     },
     {
         "num": "4",
-        "kicker": "MIDDLE EAST - CONFLICT",
-        "art": "kafd",
-        "headline": "MISSILE HITS RIYADH KAFD FINANCIAL DISTRICT",
-        "deck": "PIF Tower damaged over seven floors; no injuries reported; the district closed.",
+        "kicker": "EUROPE - WAR",
+        "art": "kyiv",
+        "headline": "RUSSIAN MISSILES HIT KYIV'S BRIDGES OVERNIGHT",
+        "deck": "Ballistic waves from 01:25 local damage three Dnipro bridges; 3 water workers killed, ~15 hurt.",
     },
 ]
 
 NUMBERS = [
     ("300,000", "EVACUATED FROM AKVAN"),
-    ("51-48", "SENATE VOTE ON IRAN"),
-    ("$48BN", "COST OF THE IRAN WAR"),
-    ("113*", "NICHOLLS, UNBEATEN IN NZ"),
-    ("$3,756", "GOLD PER OUNCE, DOWN 2.8%"),
-    ("+989", "SENSEX JUMPS IN MUMBAI"),
+    ("3", "KYIV BRIDGES HIT"),
+    ("$120BN", "ADAPTATION GOAL DROPPED"),
+    ("118", "PHILLIPS TON IN WELLINGTON"),
+    ("-4.7%", "KOSPI IN AI SELL-OFF"),
+    ("-4.1%", "NIKKEI FALL ON FRIDAY"),
 ]
 
-# Stories 5 to 50, in three columns of sixteen, fifteen and fifteen.
+# Stories 5 to 32, in two columns of fourteen each.
 STORIES = [
     "APEC ADOPTS SHENZHEN OUTLOOK; ALBANESE MEETS XI",
-    "COP31 CLOSES; ADAPTATION GAP $305BN A YEAR",
-    "TRUMP PARDONS BASEBALL LEGEND PETE ROSE",
     "NORTH KOREA EXPANDS URANIUM ENRICHMENT",
     "US AND VENEZUELA RESTORE MILITARY COOPERATION",
-    "SOUTH KOREA TOP COURT CLEARS EX-PM HAN DUCK-SOO",
-    "FIJI DECLARES NATIONAL DISASTER OVER DROUGHT",
-    "NICHOLLS 113 NOT OUT AS NZ REACH 243 FOR 5",
-    "SENSEX JUMPS 989; GOLD SLIDES TO $3,756 AN OUNCE",
-    "GOOGLE SHIPS GEMINI 4 NEON, 1M-TOKEN WINDOW",
-    "ANTHROPIC OFFER CLOSES; VALUED AT $1.5 TRILLION",
-    "NASA VOYAGER 1 NOW ONE LIGHT-DAY FROM EARTH",
-    "MIGRANT BOAT CAPSIZES OFF SENEGAL",
     "HAITI APPROVES SALVADORAN TROOP DEAL",
     "ADNOC VESSEL ATTACKED IN STRAIT OF HORMUZ",
     "EU-UK SUMMIT OPENS IN BRUSSELS",
+    "JAPAN CORE PRICES RISE 2.2% IN OCTOBER",
     "WORLD CHILDREN'S DAY MARKED AROUND THE GLOBE",
     "SYRIA HAILS UN VOTE ON POST-WAR PROGRESS",
     "SOMALIA EXPELS UAE ENVOY",
     "COLOMBIA MARCHES AGAIN AGAINST THE PRESIDENT",
+    "ITALY STOPS FOR CGIL GENERAL STRIKE",
     "CHINA HOLDS RATES FOR AN 18TH MONTH",
     "MODI MEETS WILLIAM AND KATE IN NEW DELHI",
     "QUAD HOLDS FIRST SUMMIT IN TWO YEARS",
     "NATO ASSEMBLY OPENS ITS 72ND SESSION",
     "FIRE AT YUNUS HOME IN DHAKA; ARSON SUSPECTED",
-    "ASEAN SUMMIT CLOSES WITH NEW PACTS",
     "WITKOFF AND KUSHNER BRIEF ZELENSKYY",
     "COALITION OF THE WILLING MEETS IN BERLIN",
     "AUSTRALIA SANCTIONS SETTLERS",
     "PAKISTAN MINISTER TO DELHI FOR SCO",
-    "PHILIPPINES-CHILE TRADE DEAL SIGNED",
-    "MUSK PLANS PHILIPPINES PROJECTS",
     "COP31: INDIA PUSHES RESILIENCE",
-    "ASIAN HOCKEY TROPHY BEGINS",
-    "HARIMAU SHAKTI EXERCISE IN IPOH",
     "INDIA ELECTRONICS EXPORTS JUMP 44 PERCENT",
     "CRUDE OIL FUTURES FALL OVER 3 PERCENT",
     "INDIA'S FIRST BIRD-FLU VACCINE",
-    "YOUTH ANTI-WAR PROTESTS IN EUROPE",
     "EU DELAYS METHANE RULES 24 MONTHS",
     "BAYERN MUNICH BEAT KOLN 3-0",
-    "ARGENTINA 0-2 AUSTRALIA, U17 CUP",
-    "MERZ HOSTS QATAR'S EMIR IN BERLIN",
-    "AZERBAIJAN'S ALIYEV VISITS VIETNAM",
     "US JOBLESS CLAIMS 203,000",
-    "NIFTY GAINS 286 TO 25,514",
+]
+
+# Stories 33 to 36: the picture tiles, each with its own small drawing.
+TILES = [
+    ("33", "asia",
+     "ASIA'S WORST WEEK SINCE 2020 AS AI SELL-OFF DEEPENS",
+     "KOSPI -4.7% AND NIKKEI -4.1% ON FRIDAY"),
+    ("34", "cricket",
+     "PHILLIPS 118, NICHOLLS 175* AS NZ MAKE 368 V INDIA",
+     "DAY TWO AT THE BASIN RESERVE, WELLINGTON"),
+    ("35", "senegal",
+     "MIGRANT BOAT CAPSIZES OFF SENEGAL",
+     "DOZENS MISSING OFF YENNE, SOUTH OF DAKAR"),
+    ("36", "rose",
+     "TRUMP PARDONS BASEBALL LEGEND PETE ROSE",
+     "THE HITS KING, BARRED SINCE 1989, IS CLEARED"),
 ]
 
 # World map pins: (story number, longitude, latitude).
 PINS = [
-    ("1", 88, 20), ("2", -77, 39), ("3", 13, 52), ("4", 47, 25),
-    ("5", 114, 22), ("6", 30, 37), ("7", -84, 39), ("8", 126, 39),
-    ("9", -67, 10), ("10", 127, 37), ("11", 178, -18), ("12", 175, -41),
-    ("17", -17, 15), ("18", -72, 19), ("19", 56, 26),
+    ("1", 88, 20), ("2", 30, 37), ("3", 13, 52), ("4", 30, 50),
+    ("5", 114, 22), ("7", -67, 10), ("8", -72, 19), ("9", 56, 26),
+    ("33", 127, 37), ("34", 175, -41), ("35", -17, 15), ("36", -84, 39),
 ]
 
 # Rough continent outlines in (longitude, latitude), equirectangular.
@@ -420,16 +420,20 @@ DATE_CHECK = (
     "LEFT OUT - THEY BROKE BEFORE FRIDAY: ICJ GENOCIDE RULING ON MYANMAR "
     "(19 NOV). TRILATERAL TRUMP-XI-PUTIN MEETING (19 NOV). ANTHROPIC "
     "$81.34BN IPO PRICED (19 NOV). CRIMEA BRIDGE SPAN FALLS (17-18 NOV). "
-    "DENMARK-GREENLAND PACT (19 NOV). GERMANY ELECTRICITY-TAX CUT (18 NOV)."
+    "DENMARK-GREENLAND PACT (19 NOV). GERMANY ELECTRICITY-TAX CUT (18 NOV). "
+    "HOUTHI MISSILE HITS RIYADH PIF TOWER (19 NOV). SENATE REJECTS IRAN "
+    "WAR-POWERS LIMIT 48-51 (19 NOV). SEOUL COURT OVERTURNS EX-PM HAN TERM "
+    "(19 NOV). FIJI DROUGHT DISASTER DECLARED (18 NOV). VOYAGER 1 ONE "
+    "LIGHT-DAY FROM EARTH (18 NOV)."
 )
 
 
 # ---------------------------------------------------------------------------
 # Illustrations. Each lead carries a small drawn picture, kept abstract on
-# purpose: a cyclone is rings and rain, a capitol is a dome and columns,
-# flags are bars and a ring of dots, a skyline is towers and smoke. No
-# picture pretends to be a photograph, and no picture carries words that
-# could come out garbled.
+# purpose: a cyclone is rings and rain, a climate summit is a globe and a
+# thermometer, flags are bars and a ring of dots, a night strike is a
+# skyline, a river and falling streaks of light. No picture pretends to be
+# a photograph, and no picture carries words that could come out garbled.
 # ---------------------------------------------------------------------------
 
 def draw_cyclone(cv, x, y, w, h):
@@ -451,17 +455,23 @@ def draw_cyclone(cv, x, y, w, h):
     cv.fill(x, base, w, h - (base - y), TAN)
 
 
-def draw_iran(cv, x, y, w, h):
-    cv.fill(x, y, w, h, NAVY)
-    draw_text(cv, x + 14, y + 12, "2027", GOLD, 4)
-    dx, dy = x + w // 2, y + h - 8
-    cv.disc(dx, dy - 22, 26, WHITE)
-    cv.fill(dx - 26, dy - 22, 52, 22, WHITE)
-    for k in range(5):
-        cx = dx - 20 + k * 10
-        cv.fill(cx, dy - 20, 4, 20, NAVY)
-    cv.fill(dx - 30, dy - 2, 60, 4, WHITE)
-    cv.fill(x, y + h - 4, w, 4, GOLD)
+def draw_cop(cv, x, y, w, h):
+    cv.fill(x, y, w, h, PAPER)
+    gx, gy, gr = x + 58, y + h // 2, 30
+    cv.disc(gx, gy, gr, SKY)
+    cv.disc(gx - 11, gy - 11, 8, GREEN)
+    cv.disc(gx + 9, gy + 3, 7, GREEN)
+    cv.disc(gx - 3, gy + 15, 5, SAND)
+    cv.disc(gx + 15, gy - 15, 4, GREEN)
+    cv.ring(gx, gy, gr, NAVY, 2)
+    tx = x + w - 74
+    cv.fill(tx, y + 10, 10, h - 36, WHITE)
+    cv.frame(tx, y + 10, 10, h - 36, INK, 1)
+    cv.fill(tx + 2, y + 10 + (h - 36) * 2 // 5, 6, (h - 36) * 3 // 5, RED)
+    cv.disc(tx + 5, y + h - 15, 11, RED)
+    cv.ring(tx + 5, y + h - 15, 11, INK, 1)
+    for k in range(3):
+        cv.hline(tx + 14, y + 16 + k * 12, 7, INK, 1)
 
 
 def draw_europe(cv, x, y, w, h):
@@ -484,25 +494,81 @@ def draw_europe(cv, x, y, w, h):
     cv.hline(x + 12, y + h - 22, w - 24, INK, 2)
 
 
-def draw_kafd(cv, x, y, w, h):
-    cv.fill(x, y, w, h, (233, 226, 205))
-    cv.disc(x + w - 52, y + 16, 12, GOLD)
-    heights = [62, 88, 52, 74, 40]
-    bw = 26
-    gap = 8
-    total = len(heights) * bw + (len(heights) - 1) * gap
-    sx = x + (w - total) // 2
-    base = y + h - 10
+def draw_kyiv(cv, x, y, w, h):
+    cv.fill(x, y, w, h, (10, 16, 34))
+    cv.disc(x + w - 34, y + 13, 7, (226, 220, 190))
+    dark = (6, 8, 14)
+    heights = [26, 38, 30, 44, 24, 34, 28]
+    bw = 17
+    base = y + h - 12
     for i, hh in enumerate(heights):
-        tx = sx + i * (bw + gap)
-        cv.fill(tx, base - hh, bw, hh, BLUE if i != 1 else NAVY)
-        for wy in range(base - hh + 8, base - 6, 12):
-            cv.fill(tx + 5, wy, bw - 10, 4, SKY)
-    cv.fill(sx + bw + gap + 4, base - 88 - 12, 18, 6, RED)
-    cv.fill(sx + bw + gap + 8, base - 88 - 20, 10, 6, RED)
-    cv.disc(sx + bw + gap + 13, base - 88 - 30, 7, GREY)
-    cv.disc(sx + bw + gap + 22, base - 88 - 38, 5, GREY)
-    cv.fill(x, base, w, 10, TAN)
+        tx = x + 6 + i * (bw + 3)
+        cv.fill(tx, base - hh, bw, hh, dark)
+    for wx, wy in [(14, 18), (34, 30), (74, 14), (96, 26), (120, 20)]:
+        cv.fill(x + wx, y + wy, 3, 3, GOLD)
+    cv.fill(x, base, w, 12, (16, 30, 52))
+    steel = (120, 130, 150)
+    deck_y = base - 4
+    cv.hline(x + 6, deck_y, int(w * 0.62), steel, 3)
+    cv.vline(x + 42, deck_y, 8, steel, 2)
+    cv.vline(x + 104, deck_y, 8, steel, 2)
+    cv.line(x + 6 + int(w * 0.62), deck_y, x + int(w * 0.76), deck_y + 8, steel)
+    cv.hline(x + int(w * 0.82), deck_y, int(w * 0.18) - 6, steel, 3)
+    starts = [(26, 0), (74, 2), (122, 0), (168, 3), (206, 1)]
+    ends = [(66, 22), (118, 18), (158, 24), (194, 20), (224, 26)]
+    for (sx, sy), (ex, ey) in zip(starts, ends):
+        cv.line(x + sx, y + sy, x + ex, y + h - ey, ORANGE)
+        cv.line(x + sx + 1, y + sy, x + ex + 1, y + h - ey, ORANGE)
+        cv.disc(x + ex, y + h - ey, 2, (255, 190, 90))
+    cv.disc(x + 118, y + h - 18, 5, (232, 90, 40))
+    cv.disc(x + 194, y + h - 20, 4, (200, 70, 40))
+
+
+def draw_tile_asia(cv, x, y, w, h):
+    cv.fill(x, y, w, h, NAVY)
+    bodies = [(16, 38), (27, 49), (38, 60), (49, 73)]
+    for i, (top, bot) in enumerate(bodies):
+        cx = x + 9 + i * 17
+        cv.vline(cx + 3, y + top - 8, bot - top + 14, RED, 1)
+        cv.fill(cx, y + top, 7, bot - top, RED)
+    cv.line(x + 6, y + 10, x + w - 12, y + h - 14, GOLD)
+    cv.line(x + w - 12, y + h - 14, x + w - 22, y + h - 15, GOLD)
+    cv.line(x + w - 12, y + h - 14, x + w - 13, y + h - 24, GOLD)
+
+
+def draw_tile_cricket(cv, x, y, w, h):
+    cv.fill(x, y, w, h, GREEN)
+    cv.hline(x + 6, y + h - 24, w - 12, WHITE, 2)
+    for k in range(3):
+        cv.vline(x + w - 18 + k * 5, y + h - 46, 22, GOLD, 2)
+    cv.hline(x + w - 18, y + h - 48, 12, GOLD, 1)
+    cv.disc(x + 15, y + 18, 4, RED)
+    cv.poly([(x + 24, y + 32), (x + 32, y + 28), (x + 50, y + 56),
+             (x + 42, y + 60)], TAN)
+    cv.line(x + 28, y + 30, x + 20, y + 16, INK)
+
+
+def draw_tile_senegal(cv, x, y, w, h):
+    cv.fill(x, y, w, h, SKY)
+    cv.fill(x, y + h - 34, w, 34, BLUE)
+    for k in range(3):
+        cv.hline(x + 8 + k * 24, y + h - 12 - k * 6, 12, WHITE, 1)
+    brown = (60, 44, 30)
+    cv.poly([(x + 12, y + h - 32), (x + 58, y + h - 32),
+             (x + 50, y + h - 19), (x + 20, y + h - 19)], brown)
+    cv.vline(x + 35, y + h - 60, 28, brown, 2)
+    cv.poly([(x + 38, y + h - 58), (x + 38, y + h - 34),
+             (x + 55, y + h - 34)], WHITE)
+
+
+def draw_tile_rose(cv, x, y, w, h):
+    cv.fill(x, y, w, h, NAVY)
+    cx, cy = x + w // 2, y + h // 2
+    cv.disc(cx, cy, 27, WHITE)
+    cv.ring(cx, cy, 27, INK, 1)
+    for t in range(-3, 4):
+        cv.disc(cx - 15 + abs(t), cy + t * 6, 2, RED)
+        cv.disc(cx + 15 - abs(t), cy + t * 6, 2, RED)
 
 
 # ---------------------------------------------------------------------------
@@ -512,51 +578,51 @@ def draw_kafd(cv, x, y, w, h):
 def draw_masthead(cv):
     cv.fill(16, 12, 992, 3, RED)
     draw_text(cv, 16, 22, "ONE DAY OF WORLD NEWS, ONE PICTURE", RED, 1)
-    right = "50 STORIES - 7 REGIONS - EVERY ONE FROM THIS FRIDAY"
+    right = "36 STORIES - 7 REGIONS - EVERY ONE FROM THIS FRIDAY"
     draw_text(cv, 1024 - 16 - text_width(right, 1), 22, right, INK, 1)
     draw_text_centered(cv, 16, 38, 992, "FRIDAY 20 NOVEMBER 2026", INK, 6)
     draw_text_centered(
-        cv, 16, 92,
-        992, "CYCLONE AKVAN LANDFALL - TRUMP WAITS ON IRAN - EUROPE READY TO TALK",
+        cv, 16, 88,
+        992, "MISSILES HIT KYIV - CYCLONE AKVAN LANDS IN ODISHA - COP31 DEADLOCKED",
         RED, 1)
-    cv.hline(16, 108, 992, INK, 2)
+    cv.hline(16, 104, 992, INK, 2)
 
 
-def draw_timeline(cv, y=116):
-    cv.fill(16, y, 96, 46, RED)
+def draw_timeline(cv, y=112):
+    cv.fill(16, y, 96, 44, RED)
     draw_text(cv, 24, y + 8, "THE DAY", WHITE, 1)
     draw_text(cv, 24, y + 20, "IN UTC", WHITE, 1)
     draw_text(cv, 24, y + 32, "20 NOV", WHITE, 1)
     cell_w = (992 - 96 - 5 * 6) // 6
     for i, (when, what) in enumerate(TIMELINE):
         cx = 16 + 96 + 6 + i * (cell_w + 6)
-        cv.frame(cx, y, cell_w, 46, INK, 1)
+        cv.frame(cx, y, cell_w, 44, INK, 1)
         draw_text(cv, cx + 6, y + 5, when, RED, 1)
         draw_para(cv, cx + 6, y + 17, cell_w - 12, what, INK, 1, leading=10)
 
 
 def draw_lead(cv, lead, x, y, w, h):
     cv.frame(x, y, w, h, INK, 1)
-    art_h = 100
+    art_h = 90
     if lead["art"] == "cyclone":
         draw_cyclone(cv, x + 1, y + 1, w - 2, art_h)
-    elif lead["art"] == "iran":
-        draw_iran(cv, x + 1, y + 1, w - 2, art_h)
+    elif lead["art"] == "cop":
+        draw_cop(cv, x + 1, y + 1, w - 2, art_h)
     elif lead["art"] == "europe":
         draw_europe(cv, x + 1, y + 1, w - 2, art_h)
     else:
-        draw_kafd(cv, x + 1, y + 1, w - 2, art_h)
+        draw_kyiv(cv, x + 1, y + 1, w - 2, art_h)
     ty = y + art_h + 10
     draw_text(cv, x + 8, ty, lead["num"], RED, 2)
     draw_text(cv, x + 26, ty + 3, lead["kicker"], RED, 1)
     ty += 24
     ty = draw_para(cv, x + 8, ty, w - 16, lead["headline"], INK, 2, leading=17)
-    draw_para(cv, x + 8, ty + 4, w - 16, lead["deck"], INK, 1, leading=10)
+    draw_para(cv, x + 8, ty + 4, w - 16, lead["deck"], INK, 1, leading=12)
 
 
-def draw_leads(cv, y=170):
+def draw_leads(cv, y=164):
     w = (992 - 3 * 8) // 4
-    h = 236
+    h = 218
     for i, lead in enumerate(LEADS):
         draw_lead(cv, lead, 16 + i * (w + 8), y, w, h)
     return y + h
@@ -567,32 +633,54 @@ def draw_numbers(cv, y):
     cell_w = (992 - 5 * 6) // 6
     for i, (big, label) in enumerate(NUMBERS):
         cx = 16 + i * (cell_w + 6)
-        cv.frame(cx, y, cell_w, 50, INK, 1)
+        cv.frame(cx, y, cell_w, 44, INK, 1)
         draw_text_centered(cv, cx, y + 5, cell_w, big, RED, 2)
-        draw_text_centered(cv, cx, y + 32, cell_w, label, INK, 1)
-    return y + 50
+        draw_text_centered(cv, cx, y + 30, cell_w, label, INK, 1)
+    return y + 44
 
 
 def draw_stories(cv, y):
     y += 12
-    draw_text(cv, 16, y, "ALSO ON FRIDAY 20 NOVEMBER - STORIES 5 TO 50", RED, 1)
+    draw_text(cv, 16, y, "ALSO ON FRIDAY 20 NOVEMBER - STORIES 5 TO 36", RED, 1)
     cv.hline(16, y + 12, 992, INK, 1)
     y += 20
-    cols = [STORIES[0:16], STORIES[16:31], STORIES[31:46]]
-    col_w = (992 - 2 * 16) // 3
-    row_h = 19
+    cols = [STORIES[0:14], STORIES[14:28]]
+    col_w = (992 - 16) // 2
+    row_h = 16
     for ci, col in enumerate(cols):
         cx = 16 + ci * (col_w + 16)
         for ri, item in enumerate(col):
-            num = str(5 + ci * 16 + ri) if ci < 2 else str(5 + 31 + ri)
+            num = str(5 + ci * 14 + ri)
             ry = y + ri * row_h
             draw_text(cv, cx, ry, num, RED, 1)
             draw_text(cv, cx + 24, ry, item, INK, 1)
-    return y + 16 * row_h
+    return y + 14 * row_h
+
+
+def draw_tiles(cv, y):
+    y += 6
+    w = (992 - 3 * 8) // 4
+    h = 90
+    for i, (num, art, head, deck) in enumerate(TILES):
+        x = 16 + i * (w + 8)
+        cv.frame(x, y, w, h, INK, 1)
+        if art == "asia":
+            draw_tile_asia(cv, x + 1, y + 1, 80, h - 2)
+        elif art == "cricket":
+            draw_tile_cricket(cv, x + 1, y + 1, 80, h - 2)
+        elif art == "senegal":
+            draw_tile_senegal(cv, x + 1, y + 1, 80, h - 2)
+        else:
+            draw_tile_rose(cv, x + 1, y + 1, 80, h - 2)
+        tx = x + 88
+        draw_text(cv, tx, y + 6, num, RED, 1)
+        ty = draw_para(cv, tx, y + 19, w - 94, head, INK, 1, leading=10)
+        draw_para(cv, tx, ty + 3, w - 94, deck, GREY, 1, leading=10)
+    return y + h
 
 
 def draw_map(cv, y):
-    mx, my, mw, mh = 16, y, 470, 120
+    mx, my, mw, mh = 16, y, 470, 104
     cv.fill(mx, my, mw, mh, SKY)
     cv.frame(mx, my, mw, mh, INK, 1)
     draw_text(cv, mx + 8, my + 6, "WHERE IT HAPPENED", RED, 1)
@@ -618,18 +706,18 @@ def draw_side(cv, y, h):
     draw_text(cv, x + 8, y + 6, "SEVEN REGIONS, ONE DAY", RED, 1)
     draw_para(
         cv, x + 8, y + 20, w - 16,
-        "ASIA 21 - EUROPE 9 - AMERICAS 8 - WORLD 4 - OCEANIA 3 - MIDDLE EAST 3 - AFRICA 2",
-        INK, 1, leading=11)
-    draw_text(cv, x + 8, y + 46, "HOW TO READ THIS PAGE", RED, 1)
+        "ASIA, EUROPE, THE AMERICAS, AFRICA, THE MIDDLE EAST AND OCEANIA - EVERY STORY FROM FRIDAY ALONE.",
+        INK, 1, leading=10)
+    draw_text(cv, x + 8, y + 44, "HOW TO READ THIS PAGE", RED, 1)
     draw_para(
-        cv, x + 8, y + 60, w - 16,
-        "1-4 ARE THE LEADS. 5-50 ARE THE REST OF FRIDAY, NUMBERED. PINS ON THE MAP MATCH THE NUMBERS.",
-        INK, 1, leading=11)
-    draw_text(cv, x + 8, y + 86, "WHY THIS DATE", RED, 1)
+        cv, x + 8, y + 58, w - 16,
+        "1-4 ARE THE LEADS. 5-32 ARE THE BRIEFS, 33-36 THE PICTURE TILES. MAP PINS MATCH THE NUMBERS.",
+        INK, 1, leading=10)
+    draw_text(cv, x + 8, y + 82, "WHY THIS DATE", RED, 1)
     draw_para(
-        cv, x + 8, y + 100, w - 16,
+        cv, x + 8, y + 96, w - 16,
         "THE DATE IS THE STORY: EVERY ITEM IS FROM FRIDAY 20 NOVEMBER 2026 ALONE.",
-        INK, 1, leading=11)
+        INK, 1, leading=10)
 
 
 def draw_footer(cv, y):
@@ -638,10 +726,15 @@ def draw_footer(cv, y):
     draw_text(cv, 24, y + 6, "DATE CHECK", WHITE, 1)
     draw_text(cv, 134, y + 6, "LEFT OUT ON PURPOSE - FIRST REPORTED BEFORE FRIDAY:", INK, 1)
     y += 26
-    y = draw_para(cv, 16, y, 992, DATE_CHECK, INK, 1, leading=11)
+    y = draw_para(cv, 16, y, 992, DATE_CHECK, INK, 1, leading=10)
     y += 4
     cv.hline(16, y, 992, INK, 1)
     y += 6
+    draw_text(
+        cv, 16, y,
+        "EVERY LEAD IS FRIDAY 20 NOV NEWS; THURSDAY'S STORIES (SENATE IRAN VOTE, RIYADH STRIKE, ANTHROPIC DEBUT) ARE LISTED IN THE DATE CHECK, NOT AS NEWS.",
+        INK, 1)
+    y += 11
     draw_text(
         cv, 16, y,
         "EVERY STORY HERE HAPPENED, OR WAS FIRST REPORTED, ON FRIDAY 20 NOVEMBER 2026.",
@@ -658,11 +751,12 @@ def draw_footer(cv, y):
 def build_page():
     cv = Canvas(WIDTH, HEIGHT, PAPER)
     draw_masthead(cv)
-    draw_timeline(cv)
-    y = draw_leads(cv)
+    draw_timeline(cv, 112)
+    y = draw_leads(cv, 164)
     y = draw_numbers(cv, y)
     y = draw_stories(cv, y)
-    map_y = y + 8
+    y = draw_tiles(cv, y)
+    map_y = y + 6
     map_bottom = draw_map(cv, map_y)
     draw_side(cv, map_y, map_bottom - map_y)
     draw_footer(cv, map_bottom)
